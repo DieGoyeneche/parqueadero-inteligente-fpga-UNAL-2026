@@ -10,21 +10,24 @@ module top_parqueadero (
     wire senal_abrir_barrera;
 
     // 1. Instancia del módulo de control y conteo
+	 // u_control es nombre de instancia. Etiquetas para identificar cada bloque en el diagrama esquemático de Quartus. 
+	 // formato: .puerto_del_modulo (cable_del_top)
     control_parqueadero u_control (
         .clk               (clk),
-        .rst_n             (rst_n),
-        .sensores_ocupados (switches_prueba),
+        .reset_n           (rst_n),
+        .espacios_ocupados (switches_prueba),
         .sensor_entrada    (1'b1),
         .cupos_libres      (leds_cupos_libres),
         .abrir_barrera     (senal_abrir_barrera)
     );
 
     // 2. Instancia del módulo PWM del servomotor
+	 // u_control es nombre de instancia. Etiquetas para identificar cada bloque en el diagrama esquemático de Quartus. 
     servo_pwm u_servo (
-        .clk     (clk),
-        .rst_n   (rst_n),
-        .abrir   (senal_abrir_barrera),
-        .pwm_out (pin_servo_pwm)
+        .clk     			 (clk),
+        .reset_n   		 (rst_n),
+        .abrir_barrera   (senal_abrir_barrera),
+        .pwm_out 			 (pin_servo_pwm)
     );
 
 endmodule
